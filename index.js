@@ -12,7 +12,7 @@ app.use(express.json());
 
 //Set Response
 function setResponse(id, data) {
-  return `<h2>${id} has this data in below</h2><br><h3>${data}</h3>`;
+  return data;
 }
 
 app.post("/postdata", async (req, res) => {
@@ -74,7 +74,11 @@ app.get("/getdata/:id", (req, res) => {
     if (err) throw err;
 
     if (data !== null) {
-      res.send(setResponse(id, data));
+      res.status(200).json({
+          success: false,
+          message: "Data fetched",
+          data: data
+      })
     } else {
       res.status(404).json({
         success: false,
