@@ -75,9 +75,9 @@ app.get("/getdata/:id", (req, res) => {
 
     if (data !== null) {
       res.status(200).json({
-          success: false,
+          success: true,
           message: "Data fetched",
-          data: data
+          data: JSON.parse(data)
       })
     } else {
       res.status(404).json({
