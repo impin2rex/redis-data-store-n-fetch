@@ -45,7 +45,7 @@ app.get("/getdata", async (req, res) => {
         keys,
         function (key, callback) {
           client.get(key, function (err, value) {
-            allData[key] = value;
+            allData[key] = JSON.parse(value);
             callback(err);
           });
         },
@@ -55,7 +55,7 @@ app.get("/getdata", async (req, res) => {
             res.status(200).json({
                 success: true,
                 message: "Data fetched successfully",
-                data: allData
+                data: JSON.parse(JSON.stringify(allData))
             });
         }
       );
