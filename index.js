@@ -38,24 +38,26 @@ app.post("/postdata", async (req, res) => {
 
 app.get("/getdata", async (req, res) => {
   try {
-    var allData = {};
+    var allData = [];
 
     client.keys("*", function (err, keys) {
       async.each(
         keys,
         function (key, callback) {
           client.get(key, function (err, value) {
-            allData[key] = JSON.parse(value);
+            //allData[key] = JSON.parse(value);
+            allData.push(JSON.parse(value));
             callback(err);
           });
         },
         function () {
           // when callback is finished
-          console.log(JSON.stringify(allData));
+          //console.log(JSON.stringify(allData));
             res.status(200).json({
                 success: true,
                 message: "Data fetched successfully",
-                data: JSON.parse(JSON.stringify(allData))
+                //data: JSON.parse(JSON.stringify(allData))
+                data: allData
             });
         }
       );
